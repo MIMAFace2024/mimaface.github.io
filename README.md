@@ -1,5 +1,5 @@
-# Face Adapter for Pre-Trained Diffusion Models with Fine-Grained ID and Attribute Control
-This is the repository that contains source code for the [FaceAdapter website](https://faceadapter.github.io/face-adapter.github.io/).
+# MIMAFace: Face Animation via Motion-Identity Modulated Appearance Feature Learning
+This is the repository that contains source code for the [MIMAFace website](https://mimaface2024.github.io/mimaface.github.io/).
 
 
 # Website License
