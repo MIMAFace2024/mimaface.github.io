@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MIMAFace: Face Animation via Motion-Identity Modulated Appearance Feature Learning.">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MIMAFace: Face Animation via Motion-Identity Modulated Appearance Feature Learning </title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> &#127917; 
+            <span style="background: linear-gradient(to right,   rgb(241, 85, 42), rgb(246, 180, 66)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              MIMAFace: 
+            </span>
+            <br> Face Animation via Motion-Identity Modulated Appearance Feature Learning 
+          </h1>       
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=08E500gAAAAJ">Yue Han</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=-OxQlHsAAAAJ&hl=zh-CN">Junwei Zhu</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=OMo43hMAAAAJ&hl=zh-CN">Keke He</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=1621dVIAAAAJ">Xu Chen</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=h6tuBAcAAAAJ&hl=zh-CN">Yanhao Ge</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="">Wei Li</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://lxtgh.github.io/">Xiangtai Li</a><sup>4</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://zhangzjn.github.io/">Jiangning Zhang</a><sup>2</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=fqte5H4AAAAJ&hl=zh-CN">Chengjie Wang</a><sup>2</sup>
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=qYcgBbEAAAAJ&hl=en">Yong Liu</a><sup>1</sup>
+            </span>
+          </div> -->
+
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University,</span>
+            <span class="author-block"><sup>2</sup>Tencent Youtu Lab,</span>
+            <span class="author-block"><sup>3</sup>VIVO,</span>
+            <span class="author-block"><sup>4</sup>Nanyang Technological University</span>
+          </div> -->
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2405.12970"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Huggingface Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Models</span>
+                </a>
+              </span>
+              <!-- Huggingface Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>Gradio</span>
+                </a>
+              </span>      
+                       -->
+            </div>
+
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="hero is-light is-small">
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="content has-text-centered">
+        <video id="replay-video"
+                controls
+                autoplay
+                muted
+                loop
+                preload
+                playsinline
+                width="81%">
+          <source src="./static/videos/supp.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+
+
+
+
+
+<!-- 
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Previous techniques for face reenactment and swapping predominantly rely on GAN frameworks. However, recent research has shifted its focus towards leveraging pre-trained diffusion models for these tasks, owing to their superior generation capabilities. Nonetheless, training these models incurs significant computational costs, and the results have not yet attained satisfactory performance levels.
+            To address this issue, we introduce <i><b>Face-Adapter</b></i>, an efficient and effective adapter designed for high-precision and high-fidelity face editing by pre-trained diffusion models. <br>
+          </p>
+          <p>Our method contains: <br>
+            &emsp; &#11088; A <i><b><span style="color: YellowGreen"> Spatial Condition Generator</span> </b></i> that provides precise landmarks and background;<br>
+            &emsp; &#11088; A Plug-and-play <i><b><span style="color: Gold">Identity Encoder</span> </b></i> that transfers face embeddings to the text space;<br>
+            &emsp; &#11088; An <i><b><span style="color: PaleVioletRed">Attribute Controller</span> </b> </i> that integrates spatial conditions and detailed attributes. <br>
+          </p>
+          <p>
+            <i><b>Face-Adapter</b></i> achieves comparable or even superior performance in terms of motion control precision, ID retention capability, and generation quality compared to fully fine-tuned models in face reenactment/swapping tasks. 
+            Additionally, <i><b>Face-Adapter</b></i> seamlessly integrates with popular pre-trained diffusion models such as various StableDiffusion models. 
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Previous techniques for face reenactment and swapping predominantly rely on GAN frameworks. However, recent research has shifted its focus towards leveraging pre-trained diffusion models for these tasks, owing to their superior generation capabilities. Nonetheless, training these models incurs significant computational costs, and the results have not yet attained satisfactory performance levels.
+            To address this issue, we introduce <i><b>Face-Adapter</b></i>, an efficient and effective adapter designed for high-precision and high-fidelity face editing by pre-trained diffusion models. <br>
+          </p>
+          <p>Our method contains: <br>
+            &emsp; &#11088; A <i><b><span style="color: YellowGreen"> Spatial Condition Generator</span> </b></i> that provides precise landmarks and background;<br>
+            &emsp; &#11088; A Plug-and-play <i><b><span style="color: Gold">Identity Encoder</span> </b></i> that transfers face embeddings to the text space;<br>
+            &emsp; &#11088; An <i><b><span style="color: PaleVioletRed">Attribute Controller</span> </b> </i> that integrates spatial conditions and detailed attributes. <br>
+          </p>
+          <p>
+            <i><b>Face-Adapter</b></i> achieves comparable or even superior performance in terms of motion control precision, ID retention capability, and generation quality compared to fully fine-tuned models in face reenactment/swapping tasks. 
+            Additionally, <i><b>Face-Adapter</b></i> seamlessly integrates with popular pre-trained diffusion models such as various StableDiffusion models. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+   <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <h2 class="title is-3" style="background: linear-gradient(to right,  rgb(243, 133, 14), rgb(238, 156, 2), rgb(159, 248, 41)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"> Motivation</h3>
+      </div>
+    </div>
+    <div class="content has-text-justified"></div>
+    &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; Two <b>pivotal aspects</b> in face animation are <br>
+     <p>
+       &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; 1. acquisition of <i><b><span style="color: orange">robust appearance features</span> </b> </i> <br>
+       &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;  &emsp; &emsp; &emsp; 2. maintenance of <i><b><span style="color: rgb(39, 186, 222)">temporal consistency</span> </b> </i> <br>
+     </p>
+     <img src="./static/images/motivation.png"
+     class="interpolation-image"
+     alt="Interpolate start reference image."/>
+   </div>
+        <!-- Re-rendering. -->
+
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3" style="background: linear-gradient(to right,  rgb(243, 133, 14), rgb(238, 156, 2), rgb(159, 248, 41)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"> Architecture</h3>
+              <div class="columns is-centered">
+                <div class="column content" style="text-align: center;">
+                  <!-- <p> -->
+                  <!-- <br> -->
+                  <!-- Current SD adapters for face editing struggle to generate <b>facial detail</b> and handle <b>face shape changes</b> in face swapping.
+                  </p> -->
+                  <div class="item item-chair-tp">
+                    <img src="./static/images/arch.png"
+                    class="interpolation-image"
+                    alt="Interpolate start reference image."
+                    style="width: 60%; height: 60%;"/>
+                  </div>
+                </div>
+              </div>
+              <div class="columns is-centered"></div>
+              <div class="column content" style="text-align: center;">
+                  <!-- <p> -->
+                  <!-- <br> -->
+                  <!-- Current SD adapters for face editing struggle to generate <b>facial detail</b> and handle <b>face shape changes</b> in face swapping.
+                  </p> -->
+                  <div class="item item-chair-tp">
+                    <img src="./static/images/subarch.png"
+                    class="interpolation-image"
+                    alt="Interpolate start reference image."
+                    style="width: 60%; height: 60%;"/>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+
+        <!-- <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3" style="background: linear-gradient(to right,  rgb(243, 133, 14), rgb(238, 156, 2), rgb(159, 248, 41)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"> More Comparison Results</h3>
+          </div>
+        </div>
+        <div class="content has-text-justified">
+          &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Beside SD Adapters, Face-Adapter sets itself apart from <br>
+          <p>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &#10024; <i><b><span style="color: Gold"> Diffusion-based  </span> </b></i> reenactment/ swapping methods, <br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; by effectively using the <b>prior of SD</b> and <b>improving generation quality</b>. <br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &#10024; <i><b><span style="color: Gold"> GAN-based  </span> </b></i> reenactment/ swapping methods, <br>
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; by exceled in accommodating <b>large pose</b> and <b>face shape variations</b>  <br> 
+            &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; and demonstrates exceptional performance in <b>background generation</b>. <br>
+          </p>
+        </div>
+        <div class="content has-text-centered">
+        </div> -->
+
+
+
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+
+
+
+
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Previous techniques for face reenactment and swapping predominantly rely on GAN frameworks. However, recent research has shifted its focus towards leveraging pre-trained diffusion models for these tasks, owing to their superior generation capabilities. Nonetheless, training these models incurs significant computational costs, and the results have not yet attained satisfactory performance levels.
+            To address this issue, we introduce <i><b>Face-Adapter</b></i>, an efficient and effective adapter designed for high-precision and high-fidelity face editing by pre-trained diffusion models. <br>
+          </p>
+          <p>Our method contains: <br>
+            &emsp; &#11088; A <i><b><span style="color: YellowGreen"> Spatial Condition Generator</span> </b></i> that provides precise landmarks and background;<br>
+            &emsp; &#11088; A Plug-and-play <i><b><span style="color: Gold">Identity Encoder</span> </b></i> that transfers face embeddings to the text space;<br>
+            &emsp; &#11088; An <i><b><span style="color: PaleVioletRed">Attribute Controller</span> </b> </i> that integrates spatial conditions and detailed attributes. <br>
+          </p>
+          <p>
+            <i><b>Face-Adapter</b></i> achieves comparable or even superior performance in terms of motion control precision, ID retention capability, and generation quality compared to fully fine-tuned models in face reenactment/swapping tasks. 
+            Additionally, <i><b>Face-Adapter</b></i> seamlessly integrates with popular pre-trained diffusion models such as various StableDiffusion models. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+
+    <!-- Concurrent Work. -->
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            There's a lot of excellent work that was introduced around the same time as ours.
+          </p>
+          <p>
+            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
+          </p>
+          <p>
+            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+            both use deformation fields to model non-rigid scenes.
+          </p>
+          <p>
+            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
+          </p>
+          <p>
+            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+          </p>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+
+
+<section class="hero is-light is-small">
+  <h2 class="subtitle has-text-centered">
+     <!-- Check out our paper and mess around with our code! <br> -->
+     <!-- <p>&#128071</p> -->
+     <!-- <p>&#8623</p> -->
+      <div class="content has-text-centered">
+      <br> 
+      <br> 
+      <br> 
+      
+      <a class="icon-link"
+         href="./static/paper/arxiv.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+      <br> 
+      <br> 
+      <br> 
+      <br> 
+           
+
+    </div> 
+  </h2>
+
+
+  <!-- <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+ -->
+
+        <!-- <div class="item item-chair-tp">
+          <img src="./static/images/2.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <div class="item item-chair-tp">
+          <img src="./static/images/3.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div>
+        <div class="item item-chair-tp">
+          <img src="./static/images/4.png"
+          class="interpolation-image"
+          alt="Interpolate start reference image."/>
+        </div> -->
+
+        <!-- <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/1.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!-- <div class="item custom-size item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/6.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item custom-size item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item custom-size item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/3.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item custom-size item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item custom-size item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/5.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/3.gif"
+                    type="video/gif">
+          </video>
+        </div> -->
+      <!-- </div>
+    </div>
+    <div class="item item-chair-tp" style="text-align:center;">
+      <img src="./static/images/id.png"
+      class="interpolation-image"
+      alt="Interpolate start reference image."
+      style="width: 81%; height: 81%;"/> -->
+  <!-- </div>
+  </div> -->
+</section> 
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            The source code of this website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io"> this</a> project.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
